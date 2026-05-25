@@ -4,6 +4,7 @@ import { UserTypeormRepository } from "../../database/typeorm/market-place/repos
 import { UnauthenticatedError } from "../../../shared/errors/unauthenticated.error";
 import { JWTService } from "../../../shared/services/jwt.service";
 import { JWTError, JWTErrorType } from "../../../shared/errors/jwt.error";
+import { ConflictError } from "../../../shared/errors/conflict.error";
 
 export class CheckAuthtenticationMiddleware {
   private authRepository: UserTypeormRepository;
@@ -74,6 +75,13 @@ export class CheckAuthtenticationMiddleware {
 
       if (error instanceof UnauthenticatedError) {
         throw error;
+      }
+
+      if(error instanceof ConflictError) {
+        throw new ConflictError(
+          "Conflito",
+
+        )
       }
 
       throw new JWTError("Falha na autenticação", JWTErrorType.TOKEN_INVALID);

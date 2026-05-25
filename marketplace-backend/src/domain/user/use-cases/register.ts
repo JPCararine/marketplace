@@ -5,6 +5,7 @@ import { hashSync } from "bcrypt";
 import { AuthReponse } from "../interfaces/authResponse";
 import { UnauthenticatedError } from "../../../shared/errors/unauthenticated.error";
 import { JWTService } from "../../../shared/services/jwt.service";
+import { ConflictError } from "../../../shared/errors/conflict.error";
 
 export class RegisterUseCase {
   private authRepository: UserTypeormRepository;
@@ -21,7 +22,7 @@ export class RegisterUseCase {
     const userAlredyExists = await this.authRepository.findByEmail(user.email);
 
     if (userAlredyExists) {
-      throw new UnauthenticatedError("O E-mail já está cadastrado!");
+      throw new ConflictError("O E-mail já está cadastrado!");
     }
 
     const encryptedPassword = hashSync(user.password, 10);
