@@ -6,3 +6,4 @@ export interface UserInterface {
     phone: string,
     createdAt: string,
 }
+
