@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { UserInterface } from "../interfaces/http/user";
+import { UserInterface } from "../interfaces/user";
 import { persist, createJSONStorage } from "zustand/middleware"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
