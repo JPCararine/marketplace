@@ -1,5 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import { Platform } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { GetToken } from "./auth-storage";
 
 const getBaseUrl = () => {
     return Platform.select({
@@ -8,7 +10,7 @@ const getBaseUrl = () => {
     });
 }
 
-const baseURL = getBaseUrl();
+export const baseURL = getBaseUrl();
 
 export class MarketPlaceApiClient {
     private instance: AxiosInstance;
@@ -18,10 +20,26 @@ export class MarketPlaceApiClient {
         this.instance = axios.create({
             baseURL,
         });
+
+        this.setupInterceptors();
     }
         
     getInstance() {
         return this.instance;
+    }
+
+    
+
+    private setupInterceptors() {
+        this.instance.interceptors.request.use(async (config) => {
+            const token = await GetToken();
+
+            if(token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
+
+            return config;
+        });
     }
 }
 
