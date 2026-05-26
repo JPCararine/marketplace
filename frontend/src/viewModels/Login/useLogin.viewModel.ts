@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 export default function useLoginViewModel() {
     
     const userLoginMutation = useLoginMutation();
-    const { setSession } = useUserStore();
+    
 
     const { control, handleSubmit, formState: { errors }} = useForm<LoginFormData> ({
         resolver: yupResolver(loginScheme),
@@ -18,13 +18,7 @@ export default function useLoginViewModel() {
     });
 
     const onSubmit = handleSubmit(async (userData) => {
-        const mutationResponse = await userLoginMutation.mutateAsync(userData);
-
-        setSession({
-            refreshToken: mutationResponse.refreshToken,
-            token: mutationResponse.token,
-            user: mutationResponse.user,
-        })
+        await userLoginMutation.mutateAsync(userData);
     })
 
     

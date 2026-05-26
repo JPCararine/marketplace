@@ -4,34 +4,15 @@ import { RegisterFormData, registerScheme } from "./register.scheme";
 import { useRegisterMutation } from "../../shared/queries/auth/use-register.mutation";
 import { RegisterHttpParams } from "../../shared/interfaces/http/register";
 import { useUserStore } from "../../shared/store/user-store";
-import useAppModal from "../../shared/hooks/useAppModal";
+import useImage from "../../shared/hooks/useImage";
+import { uploadAvatar } from "../../shared/services/auths.service";
 
 export default function useRegisterViewModel() {
 
     const userRegisterMutation = useRegisterMutation();
-    const { setSession, user } = useUserStore();
-    const modals = useAppModal();
+    const { imageUri: avatarUri, openImageOptions: handleSelectImage } = useImage();
 
-    function handleSelectionAvatar () {
-        modals.showSelection({
-            title: "Selecionar foto",
-            message: "Escolha uma opção:",
-            options: [
-                {
-                    text: "Galeria",
-                    icon: "images",
-                    variant: "primary",
-                    onPress: () => alert("Funcionou"),
-                },
-                {
-                    text: "Câmera",
-                    icon: "camera",
-                    variant: "primary",
-                    onPress: () => alert("Câmera"),
-                },
-            ],
-        });
-    }
+    
 
     const { control, handleSubmit, formState: {errors} } = useForm<RegisterFormData>({
         resolver: yupResolver(registerScheme),
@@ -46,14 +27,20 @@ export default function useRegisterViewModel() {
 
     const onSubmit = handleSubmit( async (userData) => {
         const { confirmPassword, ...registerData } = userData;
-        const mutationResponse = await userRegisterMutation.mutateAsync(registerData);
-        
-        
-        setSession({
-            refreshToken: mutationResponse.refreshToken,
-            token: mutationResponse.token,
-            user: mutationResponse.user,
-        });
+
+        let avatarUrl: string | undefined;
+
+        if(avatarUri) {
+            const uploadResponse = await uploadAvatar(avatarUri);
+            avatarUrl = uploadResponse.url;
+        }
+
+        const payload: RegisterHttpParams = {
+            ...registerData,
+            avatarUrl,
+        }
+        await userRegisterMutation.mutateAsync(payload);
+
     });
 
     
@@ -62,6 +49,7 @@ export default function useRegisterViewModel() {
         control,
         errors,
         onSubmit,
-        handleSelectionAvatar,
+        avatarUri,
+        handleSelectImage,
     }
 }
