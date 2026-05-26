@@ -1,4 +1,4 @@
-import { UserInterface } from "./user";
+import { UserInterface } from "../user";
 
 export interface LoginHttpParams {
     email: string;

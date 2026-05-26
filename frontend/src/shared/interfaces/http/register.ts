@@ -1,4 +1,4 @@
-import { UserInterface } from "./user";
+import { UserInterface } from "../user";
 
 export interface RegisterHttpParams{
     name: string;
