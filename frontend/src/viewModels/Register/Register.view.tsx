@@ -45,7 +45,7 @@ export default function RegisterView({onSubmit, control, handleSelectImage, avat
             </View>
             <View className="justify-center mt-12 gap-6">
                 <Text className="text-base text-gray-300">Já possui uma conta?</Text>
-                <Button title="Acessar" variant="outline" icon={"arrow-forward"} onPress={() => router.push("login")}/>
+                <Button title="Acessar" variant="outline" icon={"arrow-forward"} onPress={() => router.push("/(public)/login")}/>
             </View>
             </View>
             

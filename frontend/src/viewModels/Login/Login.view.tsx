@@ -20,7 +20,7 @@ export default function LoginView({onSubmit, control}: ReturnType<typeof useLogi
         </View>
             <View className="flex-1 justify-end mt-12 gap-6">
             <Text className="text-base text-gray-300">Ainda não possui uma conta?</Text>
-            <Button title="Cadastrar" variant="outline" icon={"arrow-forward"} onPress={() => router.push("register")}/>
+            <Button title="Cadastrar" variant="outline" icon={"arrow-forward"} onPress={() => router.push("/(public)/register")}/>
             </View>
         </View>
         </TouchableWithoutFeedback>

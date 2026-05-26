@@ -37,7 +37,6 @@ export const useLoginMutation = () => {
             token: response.token,
             user: response.user,
             });
-            
         },
         onError: (error) => {
             console.log(error)
