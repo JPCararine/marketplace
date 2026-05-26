@@ -1,9 +1,11 @@
 import { View, Text } from "react-native";
 
-export default function Home() {
+export default function Cart() {
     return (
         <View>
-            <Text>Tela de Home</Text>
+            <Text>
+                CART
+            </Text>
         </View>
     )
 }
