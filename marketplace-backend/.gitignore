@@ -5,3 +5,5 @@ build/
 tmp/
 temp/
 database.sqlite
+
+src/assets/images/avatars/
