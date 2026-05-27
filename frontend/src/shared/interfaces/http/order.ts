@@ -16,3 +16,13 @@ export interface OrderResponse {
     orders: Order[];
     totalOrders: number;
 }
+
+export interface CreateOrderRequest {
+    products: {
+        productId: number;
+        quantity: number;
+    }[];
+
+    creditCardId: number;
+}
+
