@@ -4,6 +4,7 @@ import { RegisterHttpParams } from "../../interfaces/http/register"
 import { LoginHttpParams } from "../../interfaces/http/login";
 import { useUserStore } from "../../store/user-store";
 import { Toast } from "toastify-react-native";
+import { UserUpdateRequest } from "../../interfaces/http/userUpdate";
 
 export const useRegisterMutation = () => {
     const { setSession } = useUserStore();
@@ -42,6 +43,24 @@ export const useLoginMutation = () => {
             console.log(error)
         },
     });
+
+    return mutation;
+}
+
+export const useUpdateProfileMutation = () => {
+    const { updateUser } = useUserStore();
+    const mutation = useMutation({
+        mutationFn: ({ avatarUrl, ...userData }: UserUpdateRequest) => authService.updateData(userData),
+        onSuccess: (response, variables) => {
+            updateUser({
+                ...response.user,
+                avatarUrl: variables.avatarUrl ?? response.user.avatarUrl,
+            });
+        },
+        onError: (error) => {
+            console.log(error);
+        }
+    })
 
     return mutation;
 }
