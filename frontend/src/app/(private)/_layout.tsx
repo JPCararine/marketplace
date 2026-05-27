@@ -14,6 +14,7 @@ export default function PrivateLayout() {
             headerShown: false
         }}>
             <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
+            <Stack.Screen name="profile" />
         </Stack>
     )
 }
