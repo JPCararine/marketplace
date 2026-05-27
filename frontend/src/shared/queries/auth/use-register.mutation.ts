@@ -33,11 +33,13 @@ export const useLoginMutation = () => {
     const mutation = useMutation({
         mutationFn: (userData: LoginHttpParams) => authService.login(userData),
         onSuccess: (response) => {
+            console.log(response);
             setSession({
             refreshToken: response.refreshToken,
             token: response.token,
             user: response.user,
             });
+
         },
         onError: (error) => {
             console.log(error)
