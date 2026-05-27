@@ -21,3 +21,27 @@ export interface ProductInterface {
       updatedAt: string,
       deletedAt: string
     }
+
+export interface ProductHttpRequest {
+    pagination: Pagination;
+    filters?: Filters;
+    sort?: Sort;
+}
+
+export interface Pagination {
+    page: number;
+    perPage: number;
+}
+
+export interface Filters {
+    from?: string;
+    to?: string;
+    categoryIds?: number[];
+    searchText?: string;
+    minValue?: number;
+    maxValue?: number;
+}
+
+export interface Sort {
+    averageRating?: "ASC" | "DESC";
+}
