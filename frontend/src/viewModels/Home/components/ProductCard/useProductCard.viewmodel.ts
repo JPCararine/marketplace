@@ -1,11 +1,11 @@
 import { ProductInterface } from "../../../../shared/interfaces/product"
+import getProducts from "../../../../shared/queries/product/use-getProducts.queries"
 
-interface useProductCardViewModelParams {
-    product: ProductInterface;
-}
 
-export default function useProductCardViewModel({product}: useProductCardViewModelParams) {
+
+export default function useProductCardViewModel() {
+    
     return {
-        product,
+        
     }
 }
