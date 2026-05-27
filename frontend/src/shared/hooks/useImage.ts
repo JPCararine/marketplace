@@ -14,6 +14,7 @@ export default function useImage () {
 
     async function selectFromGallery() {
         close();
+
         const uri = await openGallery();
 
         if (uri) {
@@ -24,6 +25,7 @@ export default function useImage () {
 
   async function selectFromCamera() {
         close();
+
         const uri = await openCamera();
 
         if (uri) {
@@ -32,7 +34,7 @@ export default function useImage () {
     }
     
     function openImageOptions () {
-    
+         
         modals.showSelection({
             title: "Selecionar foto",
             message: "Escolha uma opção:",

@@ -22,6 +22,7 @@ export default function useAppModal() {
         options: SelectionOption[];
     }){
         open(createElement(SelectionModal, {
+            
             title: config.title,
             message: config.message,
             options: config.options,

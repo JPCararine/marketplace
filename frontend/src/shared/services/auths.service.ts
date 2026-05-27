@@ -2,6 +2,8 @@ import { baseURL, marketPlaceApiClient } from "../api/market-place";
 import { LoginHttpParams, LoginHttpResponse } from "../interfaces/http/login";
 import { RegisterHttpParams, RegisterHttpResponse } from "../interfaces/http/register";
 import { UploadAvatarResponse } from "../interfaces/http/upload-avatar";
+import { UserUpdateRequest, UserUpdateResponse } from "../interfaces/http/userUpdate";
+import { UserInterface } from "../interfaces/user";
 
 
 export const register = async (userData: RegisterHttpParams) => {
@@ -33,7 +35,11 @@ export const uploadAvatar = async (avatarUri: string) => {
     }
     );
 
-    data.url = `${baseURL}${data.url}`;
+    return data;
+}
+
+export const updateData = async (userData: UserUpdateRequest) => {
+    const { data } = await marketPlaceApiClient.put<UserUpdateResponse>("/user", userData);
 
     return data;
 }

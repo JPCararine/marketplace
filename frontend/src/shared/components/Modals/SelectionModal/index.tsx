@@ -11,6 +11,7 @@ export interface SelectionModalProps {
 }
 
 export default function SelectionModal ({ title, message, options }: SelectionModalProps) {
+    
 
     function getButtonClass (variant: SelectionVariants) {
         return clsx("w-full py-3 px-4 rounded-lg items-center flex-row justify-center mb-2", {
