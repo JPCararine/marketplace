@@ -1,8 +1,7 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import * as productService from "../../services/product.service";
-import { ProductHttpRequest } from "../../interfaces/product";
-import { VideoExportPreset } from "expo-image-picker";
 import BuildImageUrl from "../../helpers/buildImageUrl";
+import { useLocalSearchParams } from "expo-router";
 
 export default function useProductsInfiniteQuery () {
     
@@ -46,6 +45,61 @@ export default function useProductsInfiniteQuery () {
         ...query,
         products
     };
+}
+
+export function useProductCommentsInfiniteQuery () {
+    const { id } = useLocalSearchParams();
+    const query = useInfiniteQuery({
+        queryKey: ["product-comments", Number(id)],
+        initialPageParam: 1,
+
+        queryFn: async ({ pageParam }) => {
+            try {
+                return productService.getProductsComments({
+                    productId: Number(id), 
+                    pagination: {
+                        page: pageParam,
+                        perPage: 10,
+                    }
+                })
+            } catch (error) {
+                throw error;
+            }
+        },
+        getNextPageParam (lastPage) {
+            if(lastPage.page >= lastPage.totalPages) {
+                return undefined;
+            }
+
+            return lastPage.page + 1;
+        }
+
+    })
+
+    const products = query.data?.pages.flatMap((page) => page.data) ?? [];
+    console.log("id da rota:", id);
+console.log("productId enviado:", Number(id));
+    console.log("comments query data:", query.data);
+  console.log("comments products:", products);
+  console.log("comments error:", query.error);
+    console.log(query.data?.pages.flatMap((page) => page.data))
+    return {
+        ...query,
+        products
+    }
+}
+
+export function useProductUserComment (productId: string) {
+
+    const userComment = useQuery({
+        queryKey: ["products-user-comment", productId],
+        queryFn: () => productService.getProductUserComment(productId),
+        enabled: !!productId,
+    });
+    
+    return {
+        userComment,
+    }
 }
 
 

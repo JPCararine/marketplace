@@ -6,7 +6,6 @@ interface ListOrdersProps {
 }
 
 export default function ListOrders ({order}: ListOrdersProps) {
-    console.log(order.productPhoto)
     return (
         <View className="w-full h-[90px] p-1 gap-1 flex-row bg-white mt-2">
             <Image source={{ uri: order.productPhoto }} className="w-[88px] h-[81px] rounded-md" resizeMode="cover"/>

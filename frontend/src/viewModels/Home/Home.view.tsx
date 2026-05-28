@@ -9,7 +9,6 @@ import { colors } from "../../styles/colors";
 
 export default function HomeView({ isRefetching,formattedUsername, avatarUrl, logout, fetchNextPage, hasNextPage, isFetchingNextPage,  products, handleLoadMore, handleRefresh}: ReturnType<typeof useHomeViewModel>) {
    const { width } = useWindowDimensions();
-
    const listPadding = 16;
    const gap = 12;
 
@@ -25,7 +24,7 @@ export default function HomeView({ isRefetching,formattedUsername, avatarUrl, lo
             Você chegou ao fim dos produtos!
             </Text>
         </View>
-) : null;
+) : null
     return (
         
             <SafeAreaView edges={["top"]} className="flex-1 pt-8">

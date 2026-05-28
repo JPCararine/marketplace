@@ -45,3 +45,46 @@ export interface Filters {
 export interface Sort {
     averageRating?: "ASC" | "DESC";
 }
+
+export interface ProductCommentsHttpRequest {
+    productId: number;
+    pagination: Pagination;
+}
+
+export interface CommentUserAvatar {
+    url: string;
+}
+
+export interface CommentUserRating {
+    value: number;
+}
+
+export interface CommentUser {
+    id: number;
+    name: string;
+    email: string;
+    avatar: CommentUserAvatar;
+    rating: CommentUserRating;
+}
+
+export interface ProductComment {
+    id: number;
+    content: string;
+    productId: number;
+    userId: string;
+    createdAt: string;
+    user: CommentUser;
+}
+
+export interface ProductCommentsResponse {
+    data: ProductComment[];
+    page: number;
+    perPage: number;
+    total: number;
+    totalPages: number;
+}
+
+export interface ProductUserCommentResponse {
+    comment: string | null;
+    rating: string | null;
+}
