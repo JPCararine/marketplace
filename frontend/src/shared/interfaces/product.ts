@@ -85,6 +85,15 @@ export interface ProductCommentsResponse {
 }
 
 export interface ProductUserCommentResponse {
-    comment: string | null;
-    rating: string | null;
+    comment: {
+    id: number;
+    content: string;
+    createdAt: string;
+    user: {
+      id: number;
+      name: string;
+    };
+} | null;
+
+  rating: number | null;
 }

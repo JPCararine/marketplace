@@ -2,6 +2,7 @@ import { useLocalSearchParams } from "expo-router";
 import useProductByIdQuery from "../../shared/queries/product/use-getProductById";
 import useProductsInfiniteQuery, { useProductCommentsInfiniteQuery, useProductUserComment } from "../../shared/queries/product/use-getProducts.queries"
 import BuildImageUrl from "../../shared/helpers/buildImageUrl";
+import { useUserStore } from "../../shared/store/user-store";
 
 export default function useProductDetailViewModel() {
     const { id } = useLocalSearchParams();
@@ -11,6 +12,7 @@ export default function useProductDetailViewModel() {
     const { data, isLoading, isError } = useProductByIdQuery(productId);
     
     const productPhoto = BuildImageUrl(data?.photo ?? "");
+    
 
     return {
         data, isLoading, isError,
@@ -18,5 +20,6 @@ export default function useProductDetailViewModel() {
         comment,
         products,
         userComment,
+        
     }
 }

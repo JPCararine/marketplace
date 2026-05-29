@@ -77,12 +77,7 @@ export function useProductCommentsInfiniteQuery () {
     })
 
     const products = query.data?.pages.flatMap((page) => page.data) ?? [];
-    console.log("id da rota:", id);
-console.log("productId enviado:", Number(id));
-    console.log("comments query data:", query.data);
-  console.log("comments products:", products);
-  console.log("comments error:", query.error);
-    console.log(query.data?.pages.flatMap((page) => page.data))
+    
     return {
         ...query,
         products
