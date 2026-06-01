@@ -1,6 +1,6 @@
 import { marketPlaceApiClient } from "../api/market-place";
 import { ProductResponse } from "../interfaces/http/product-response"
-import { ProductCommentsHttpRequest, ProductCommentsResponse, ProductHttpRequest, ProductInterface, ProductUserCommentResponse } from "../interfaces/product";
+import { ProductCommentsHttpRequest, ProductCommentsResponse, ProductHttpRequest, ProductInterface, ProductRateRequest, ProductUserCommentResponse } from "../interfaces/product";
 
 
 
@@ -24,6 +24,12 @@ export const getProductsComments = async (params: ProductCommentsHttpRequest) =>
 
 export const getProductUserComment = async (productId: string) => {
   const { data } = await marketPlaceApiClient.get<ProductUserCommentResponse>(`/products/${productId}/user-comment`);
+
+  return data;
+}
+
+export const postProductRate = async (params: ProductRateRequest) => {
+  const { data } = await marketPlaceApiClient.post<string>("/products/rate", params);
 
   return data;
 }

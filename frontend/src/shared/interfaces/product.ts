@@ -97,3 +97,8 @@ export interface ProductUserCommentResponse {
 
   rating: number | null;
 }
+
+export interface ProductRateRequest {
+    productId: number;
+    value: number;
+}

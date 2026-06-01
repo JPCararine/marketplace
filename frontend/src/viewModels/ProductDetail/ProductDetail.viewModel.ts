@@ -10,7 +10,6 @@ export default function useProductDetailViewModel() {
     const { data: comment, products } = useProductCommentsInfiniteQuery();
     const { userComment } = useProductUserComment(productId.toString());
     const { data, isLoading, isError } = useProductByIdQuery(productId);
-    
     const productPhoto = BuildImageUrl(data?.photo ?? "");
     
 
