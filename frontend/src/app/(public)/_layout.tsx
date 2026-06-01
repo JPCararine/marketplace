@@ -6,7 +6,7 @@ export default function PublicLayout() {
     const { user, token } = useUserStore();
 
     if(user && token) {
-        return <Redirect href="/(private)/home" />
+        return <Redirect href="/(private)/(tabs)/home" />
     }
 
     return (

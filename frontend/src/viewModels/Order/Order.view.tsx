@@ -34,7 +34,7 @@ export default function OrderView({data, isLoading}: ReturnType<typeof useOrderV
                                     <Text className="text-sm text-gray-400 leading-6 max-w-[210px] text-center">Explore o catálogo de produtos e faça sua primeira compra!</Text>
                                     </View>
                                     <View className="mt-10 ">
-                                    <TouchableOpacity className="w-[180px] h-[40px] rounded-lg border-purple-base border items-center justify-between flex-row p-2 px-3" onPress={() => router.push("/(private)/home")}>
+                                    <TouchableOpacity className="w-[180px] h-[40px] rounded-lg border-purple-base border items-center justify-between flex-row p-2 px-3" onPress={() => router.push("/(private)/(tabs)/home")}>
                                             <Ionicons name="storefront-outline" size={20} color={colors["purple-base"]}/>
                                             <Text className="text-base font-semibold text-purple-base">Explorar produtos</Text>
                                     </TouchableOpacity>
