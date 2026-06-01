@@ -2,11 +2,16 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import * as productService from "../../services/product.service";
 import BuildImageUrl from "../../helpers/buildImageUrl";
 import { useLocalSearchParams } from "expo-router";
+import { FilterState } from "../../store/use-filter-store";
 
-export default function useProductsInfiniteQuery () {
+interface productsInfiniteQueryParams {
+    filters?: FilterState;
+}
+
+export default function useProductsInfiniteQuery ({filters}: productsInfiniteQueryParams) {
     
     const query = useInfiniteQuery({
-        queryKey: ["products"],
+        queryKey: ["products", filters],
         staleTime: 1000 * 60 * 1,
         initialPageParam: 1,
 
@@ -16,6 +21,12 @@ export default function useProductsInfiniteQuery () {
                     pagination: {
                         page: pageParam,
                         perPage: 10,
+                    },
+                    filters: {
+                        categoryIds: filters?.selectedCategories ?? [],
+                        maxValue: filters?.valueMax ?? undefined,
+                        minValue: filters?.valueMin ?? undefined,
+                        searchText: filters?.searchText ?? undefined,
                     }
                 })
             } catch (error) {
@@ -95,6 +106,17 @@ export function useProductUserComment (productId: string) {
     return {
         userComment,
     }
+}
+
+
+export const useGetProductCategoriesQuery = () => {
+  const query = useQuery({
+    queryKey: ['product-categories'],
+    queryFn: () => productService.getProductsCategories(),
+    staleTime: 1000 * 60 * 60, 
+  })
+
+  return query
 }
 
 

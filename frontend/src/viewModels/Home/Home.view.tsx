@@ -3,11 +3,12 @@ import HomeHeader from "./components/HomeHeader";
 import { useUserStore } from "../../shared/store/user-store";
 import useHomeViewModel from "./useHome.viewModel";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SearchInput from "./components/SearchInput";
+
 import ProductCardView from "./components/ProductCard/ProductCard.view";
 import { colors } from "../../styles/colors";
+import { SearchInput } from "./components/SearchInput";
 
-export default function HomeView({ isRefetching,formattedUsername, avatarUrl, logout, fetchNextPage, hasNextPage, isFetchingNextPage,  products, handleLoadMore, handleRefresh}: ReturnType<typeof useHomeViewModel>) {
+export default function HomeView({ isRefetching,formattedUsername, avatarUrl, hasNextPage, isFetchingNextPage,  products, handleLoadMore, handleRefresh, handleEndReached, searchInputText, setSearchInputText }: ReturnType<typeof useHomeViewModel>) {
    const { width } = useWindowDimensions();
    const listPadding = 16;
    const gap = 12;
@@ -38,7 +39,7 @@ export default function HomeView({ isRefetching,formattedUsername, avatarUrl, lo
             paddingBottom: 120,
             gap: 12,
         }}
-        onEndReached={handleLoadMore}
+        onEndReached={handleEndReached}
         onEndReachedThreshold={0.3}
         refreshControl={<RefreshControl 
             refreshing={isRefetching}
@@ -52,7 +53,10 @@ export default function HomeView({ isRefetching,formattedUsername, avatarUrl, lo
         ListHeaderComponent={() => (
             <>
                 <HomeHeader username={formattedUsername} avatarUrl={avatarUrl ?? undefined} />
-                <SearchInput />
+                <SearchInput 
+                    setSearchInputText={setSearchInputText}
+                    inputValue={searchInputText}
+                />
             </>
         )}
         /> 
