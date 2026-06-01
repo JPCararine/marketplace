@@ -11,7 +11,11 @@ export default function ProductDetailView({
   productPhoto,
   products,
   userComment,
+  addItem,
+  isPressed,
+  handleIsPressed
 }: ReturnType<typeof useProductDetailViewModel>) {
+
   return (
     <View className="flex-1">
     <FlatList
@@ -46,13 +50,25 @@ export default function ProductDetailView({
                 <Text className="text-gray-500 font-semibold text-xs mt-3">R$</Text>
                 <Text className="text-gray-500 font-semibold text-2xl">{moneyMapper(Number(data?.value))}</Text>
             </View>
-            <TouchableOpacity className="bg-purple-base rounded-lg items-center flex-row gap-2 px-4 w-[120px] h-[40px]">
+            {isPressed ? (
+                <View className="bg-green-500 rounded-lg items-center justify-center w-[120px] h-[40px]">
+                    <Text className="text-white font-bold text-base">Adicionado!</Text>
+                </View>
+            ) : (
+                <TouchableOpacity className="bg-purple-base rounded-lg items-center flex-row gap-2 px-4 w-[120px] h-[40px]" onPress={() => {
+                    handleIsPressed();
+                    addItem({
+                        id: data?.id ?? 0,
+                        name: data?.name ?? "",
+                    price: data?.value ?? "0",
+                    image: productPhoto ?? "",
+            })}}>
                 <View className="flex-row items-center gap-2">
                 <Ionicons name="cart-outline" size={20} color={colors.white} />
                 <Text className="text-sm text-white">Adicionar</Text>
                 </View>
             </TouchableOpacity>
-            
+           )} 
         </View>
     </View>
   );
