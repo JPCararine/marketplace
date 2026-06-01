@@ -7,6 +7,7 @@ import { useCartStore } from "../../shared/store/cart-store";
 import { useState } from "react";
 import { useModalStore } from "../../shared/store/modal-store";
 import { useBottomSheetStore } from "../../shared/store/bottomsheet-store";
+import { localNotificationsService } from "../../shared/services/local-notifications.service";
 
 export default function useProductDetailViewModel() {
     const { id } = useLocalSearchParams();
@@ -26,6 +27,13 @@ export default function useProductDetailViewModel() {
             setIsPressed(false);
         }, 1000);
     }
+
+    localNotificationsService.scheduleCartReminder({
+        delayInMinutes: 1,
+        productId: productId,
+        productName: data?.name ?? "Produto",
+        
+    })
 
     
 
