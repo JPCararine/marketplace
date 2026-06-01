@@ -4,6 +4,8 @@ import { router } from "expo-router";
 import { colors } from "../../styles/colors";
 import { moneyMapper } from "../../shared/utils/moneyMapper";
 import { ProductInterface } from "../../shared/interfaces/product";
+import { useBottomSheetStore } from "../../shared/store/bottomsheet-store";
+import ReviewBottomSheet from "./ReviewBottomSheet";
 
 interface ProductDetailHeaderProps {
   data?: ProductInterface;
@@ -14,6 +16,7 @@ export default function ProductDetailHeader({
   data,
   productPhoto,
 }: ProductDetailHeaderProps) {
+  const { open } = useBottomSheetStore();
   return (
     <>
       <TouchableOpacity
@@ -145,7 +148,7 @@ export default function ProductDetailHeader({
           Avaliações
         </Text>
 
-        <TouchableOpacity className="items-center justify-center">
+        <TouchableOpacity className="items-center justify-center" onPress={() => open({content: <ReviewBottomSheet productId={data?.id ?? 0} />, config: { snapPoints: ["70%"]}})}>
           <Text className="text-sm font-semibold text-purple-base">
             Avaliar
           </Text>

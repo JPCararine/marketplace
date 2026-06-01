@@ -9,12 +9,13 @@ export interface AppInputProps extends TextInputProps, AppInputVariantsProps {
     leftIcon?: keyof typeof Ionicons.glyphMap;
     rightIcon?: boolean;
     containerClassName?: string;
+    labelClassName?: string;
     mask?: (value: string) => void | string;
     error?: string;
 }  
 
 export default function AppInput({
-    label, leftIcon, rightIcon, containerClassName, 
+    label, leftIcon, rightIcon, containerClassName, labelClassName,
     mask, className, value, isError, 
     secureTextEntry, onBlur, onFocus,
     onChangeText, error, isDisabled, ...textInputProps
@@ -32,7 +33,7 @@ export default function AppInput({
         handleTextChange} = useAppInputViewModel({
         mask, value, isError: !!error || isError, 
         secureTextEntry, onBlur, onFocus,
-        onChangeText, error, ...textInputProps,
+        onChangeText, error, ...textInputProps
 
     });
     const styles = appInputVariants({
@@ -44,7 +45,7 @@ export default function AppInput({
 
     return (
         <View className={styles.container({className: containerClassName})}>
-            <Text className={styles.label()}>{label}</Text>
+            <Text className={styles.label({ className: labelClassName })}>{label}</Text>
             <Pressable className={styles.wrapper()} onPress={handleWrapperPress}>
                 {leftIcon && (
                 <Ionicons
@@ -58,7 +59,7 @@ export default function AppInput({
                 ref={inputRef} 
                 value={value} 
                 onChangeText={handleTextChange} 
-                className={styles.input()} 
+                className={styles.input({ className })} 
                 onFocus={handleFocus} 
                 onBlur={handleBlur}
                 placeholderTextColor={colors.gray[200]}
