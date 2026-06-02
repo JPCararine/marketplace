@@ -1,24 +1,55 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { View, Text, TouchableOpacity, Image, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { colors } from "../../styles/colors";
 import { moneyMapper } from "../../shared/utils/moneyMapper";
 import { ProductInterface } from "../../shared/interfaces/product";
 import { useBottomSheetStore } from "../../shared/store/bottomsheet-store";
 import ReviewBottomSheet from "./ReviewBottomSheet";
+import { useEffect } from "react";
+import useProductDetailViewModel from "./ProductDetail.viewModel";
 
 interface ProductDetailHeaderProps {
-  data?: ProductInterface;
+  data?: ProductInterface,
   productPhoto: string;
+  isFavorite?: boolean;
+  handleToggleFavorite: () => void;
+  loading: boolean;
 }
+
+
 
 export default function ProductDetailHeader({
   data,
   productPhoto,
+  isFavorite,
+  handleToggleFavorite,
+  loading,
 }: ProductDetailHeaderProps) {
   const { open } = useBottomSheetStore();
+  const { openFeedbackBottomSheet } = useLocalSearchParams();
+
+  function handleOpenReview () {
+    if (!data?.id) {
+      return;
+    }
+
+    open({content: <ReviewBottomSheet productId={data.id} />, config: { snapPoints: ["70%"]}})
+    }
+
+    
+
+
+  useEffect(() => {
+      if(openFeedbackBottomSheet && data?.id) {
+        handleOpenReview();
+      }
+  }, [openFeedbackBottomSheet, data?.id])
+
+  
   return (
     <>
+      <View className="items-center justify-between flex-row">
       <TouchableOpacity
         className="flex-row gap-2"
         onPress={() => router.back()}
@@ -32,6 +63,10 @@ export default function ProductDetailHeader({
           Voltar
         </Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={handleToggleFavorite}>
+        <Ionicons name={isFavorite ? "heart" : "heart-outline"} color={colors.danger} size={28}/>
+      </TouchableOpacity>
+      </View>
 
       <View className="w-full h-[200px] rounded-md overflow-hidden mt-6">
         <Image
@@ -148,7 +183,7 @@ export default function ProductDetailHeader({
           Avaliações
         </Text>
 
-        <TouchableOpacity className="items-center justify-center" onPress={() => open({content: <ReviewBottomSheet productId={data?.id ?? 0} />, config: { snapPoints: ["70%"]}})}>
+        <TouchableOpacity className="items-center justify-center" onPress={handleOpenReview}>
           <Text className="text-sm font-semibold text-purple-base">
             Avaliar
           </Text>

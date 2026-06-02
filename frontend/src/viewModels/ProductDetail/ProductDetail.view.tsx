@@ -11,9 +11,12 @@ export default function ProductDetailView({
   productPhoto,
   products,
   userComment,
-  addItem,
   isPressed,
-  handleIsPressed
+  handleIsPressed,
+  addItemToCart,
+  isFavorite,
+  handleToogleFavorite,
+  loading
 }: ReturnType<typeof useProductDetailViewModel>) {
 
   return (
@@ -30,6 +33,9 @@ export default function ProductDetailView({
         <ProductDetailHeader
           data={data}
           productPhoto={productPhoto ?? ""}
+          isFavorite={isFavorite}
+          handleToggleFavorite={handleToogleFavorite}
+          loading={loading}
         />
       }
       renderItem={({ item }) => (
@@ -57,12 +63,8 @@ export default function ProductDetailView({
             ) : (
                 <TouchableOpacity className="bg-purple-base rounded-lg items-center flex-row gap-2 px-4 w-[120px] h-[40px]" onPress={() => {
                     handleIsPressed();
-                    addItem({
-                        id: data?.id ?? 0,
-                        name: data?.name ?? "",
-                    price: data?.value ?? "0",
-                    image: productPhoto ?? "",
-            })}}>
+                    addItemToCart();
+                    }}>
                 <View className="flex-row items-center gap-2">
                 <Ionicons name="cart-outline" size={20} color={colors.white} />
                 <Text className="text-sm text-white">Adicionar</Text>
