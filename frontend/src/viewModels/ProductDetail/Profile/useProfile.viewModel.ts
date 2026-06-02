@@ -1,14 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { baseURL } from "../../shared/api/market-place";
-import { useUserStore } from "../../shared/store/user-store";
+import { baseURL } from "../../../shared/api/market-place";
+import { useUserStore } from "../../../shared/store/user-store";
 import { ProfileFormData, profileScheme } from "./profile.scheme";
 import { useForm } from "react-hook-form";
-import { useUpdateProfileMutation } from "../../shared/queries/auth/use-register.mutation";
+import { useUpdateProfileMutation } from "../../../shared/queries/auth/use-register.mutation";
 import React from "react";
 import { Toast } from "toastify-react-native";
-import { uploadAvatar } from "../../shared/services/auths.service";
-import { UserUpdateRequest } from "../../shared/interfaces/http/userUpdate";
-import useImage from "../../shared/hooks/useImage";
+import { uploadAvatar } from "../../../shared/services/auths.service";
+import { UserUpdateRequest } from "../../../shared/interfaces/http/userUpdate";
+import useImage from "../../../shared/hooks/useImage";
 
 export default function useProfileViewModel() {
     const { user, logout} = useUserStore();

@@ -1,11 +1,11 @@
 import { TouchableOpacity, View, Text, Image, Keyboard, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, ActivityIndicator } from "react-native";
 import useProfileViewModel from "./useProfile.viewModel";
 import { Ionicons } from "@expo/vector-icons";
-import { colors } from "../../styles/colors";
+import { colors } from "../../../styles/colors";
 import { router } from "expo-router";
-import AppInput from "../../shared/components/AppInput";
-import AppInputController from "../../shared/components/AppInputController";
-import Button from "../../shared/components/Button";
+import AppInput from "../../../shared/components/AppInput";
+import AppInputController from "../../../shared/components/AppInputController";
+import Button from "../../../shared/components/Button";
 import { useEffect } from "react";
 
 
