@@ -6,10 +6,12 @@ import { RegisterHttpParams } from "../../shared/interfaces/http/register";
 import { useUserStore } from "../../shared/store/user-store";
 import useImage from "../../shared/hooks/useImage";
 import { uploadAvatar } from "../../shared/services/auths.service";
+import { useOneSignal } from "../../shared/hooks/useOneSignal";
 
 export default function useRegisterViewModel() {
 
     const userRegisterMutation = useRegisterMutation();
+    const { playerId } = useOneSignal();
     const { imageUri: avatarUri, openImageOptions: handleSelectImage } = useImage();
 
     
@@ -38,6 +40,7 @@ export default function useRegisterViewModel() {
         const payload: RegisterHttpParams = {
             ...registerData,
             avatarUrl,
+            notificationToken: playerId,
         }
         await userRegisterMutation.mutateAsync(payload);
 

@@ -50,7 +50,8 @@
           "defaultChannel": "default",
           "enableBackgroundRemoteNotifications": false
         }
-      ]
+      ],
+      ["onesignal-expo-plugin", {"mode": "development"}]
     ]
   }
 }
