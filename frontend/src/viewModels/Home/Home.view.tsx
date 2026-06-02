@@ -59,8 +59,9 @@ export default function HomeView({ isRefetching,formattedUsername, avatarUrl, ha
                 />
             </>
         )}
-        /> 
         ListFooterComponent={footerComponent}
+        /> 
+        
             </SafeAreaView>
        
     )
